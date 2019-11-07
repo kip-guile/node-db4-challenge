@@ -31,4 +31,20 @@ router.get('/:id/ingredients', (req, res) => {
         })
 })
 
+router.get('/:id/instructions', (req, res) => {
+    const {id} = req.params
+
+    Recipes.getInstructions(id)
+        .then(instructions => {
+            if (instructions.length) {
+                res.json(instructions)
+            } else {
+                res.status(404)
+            }
+        })
+        .catch(err => {
+            res.status(500).json({ message: 'Failed to get instructions' })
+        })
+})
+
 module.exports = router;
